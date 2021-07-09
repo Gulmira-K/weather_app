@@ -68,13 +68,16 @@ function getWeatherByCoords(latitude, longitude) {
 
 function getWeatherByCity(city) {
   cityInput.value = '';
+  
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
   getWeatherData(apiUrl)
 }
 
 function getCoordinates() {
   displayLoader()
+
   list.classList.add('invisible')
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => getWeatherByCoords(position.coords.latitude, position.coords.longitude))
   } else {
@@ -83,13 +86,14 @@ function getCoordinates() {
 }
 
 function handleCitySearch(e) {
-  console.log(cityInput.value)
   e.preventDefault();
+
   if (cityInput.value) {
     list.classList.add('invisible')
     
     displayLoader()
     getWeatherByCity(cityInput.value)
+
   } else {
     alert('Please, enter city name')
   }
