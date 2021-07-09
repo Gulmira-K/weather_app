@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/e2264a75f2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Weather APP</title>
+  </head>
+  <body>
+    <main>
+      <div id="question-container">
+        <h5>Get forcast for today in:</h5>
+        <button id="current-location-btn">Current location</button>
+        <button id="another-city-btn">Another city</button>
+      </div>
+      <div id="weather-data-container" class="invisible">
+        <div id="location-data">
+          <h3 id="city-name"></h3>
+          <div id="search-constainer">
+            <form>
+              <input
+                type="text"
+                placeholder="Enter city..."
+                id="city-input"
+                autofocus
+              />
+              <button id="search-btn"><i class="fas fa-search"></i></button>
+            </form>
+            <button id="coords-btn">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+          </div>
+        </div>
+        <ul class="invisible">
+          <li>
+            <span id="current-temperature"></span>
+            <img src="./images/temperature.png" alt="Temperature" />
+          </li>
+          <li>
+            <span id="current-humidity"></span>
+            <img src="./images/humidity.png" alt="Humidity" />
+          </li>
+          <li>
+            <span id="current-wind-speed"></span>
+            <img src="./images/wind.png" alt="Wind speed" />
+          </li>
+          <li>
+            <span id="current-pressure"></span>
+            <img src="./images/pressure.png" alt="Pressure" />
+          </li>
+        </ul>
+      </div>
+    </main>
+    <script src="scripts.js"></script>
+  </body>
+</html>
