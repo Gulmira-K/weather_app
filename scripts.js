@@ -1,5 +1,6 @@
 const questionContainer = document.getElementById('question-container'),  
       weatherDataContainer = document.getElementById('weather-data-container'),  
+      loader = document.getElementById('loader'),  
       currentCityBtn = document.getElementById('current-location-btn'),
       anotherCityBtn = document.getElementById('another-city-btn'),
       cityName = document.getElementById('city-name'),  
@@ -21,12 +22,26 @@ form.addEventListener('submit', handleCitySearch);
 
 function toggleModal(e) {
   if (e.target.getAttribute('id') === 'current-location-btn') {
+    displayLoader()
     getCoordinates()
-    list.classList.toggle('invisible')
-  }
 
+    list.classList.add('invisible')
+
+  } else if (e.target.getAttribute('id') === 'another-city-btn') {
+    list.classList.add('invisible')
+    weatherDataContainer.classList.toggle('invisible')
+  }
+   
   questionContainer.classList.toggle('invisible')
-  weatherDataContainer.classList.toggle('invisible')
+ }
+
+function displayLoader() {
+  loader.classList.remove('invisible')
+ 
+  setTimeout(function () {
+    loader.classList.add('invisible')
+    list.classList.remove('invisible')
+  }, 1500)
 }
 
 function displayWeatherData(data) {
@@ -35,6 +50,8 @@ function displayWeatherData(data) {
   humidity.innerHTML = `${Math.round(data.main.humidity)}%`;
   windSpeed.innerHTML = `${Math.round(data.wind.speed)}m/s`;
   pressure.innerHTML = `${Math.round(data.main.pressure)}hPa`;
+
+  weatherDataContainer.classList.remove('invisible')
 }
 
 function getWeatherData(url) {
@@ -56,6 +73,8 @@ function getWeatherByCity(city) {
 }
 
 function getCoordinates() {
+  displayLoader()
+  list.classList.add('invisible')
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => getWeatherByCoords(position.coords.latitude, position.coords.longitude))
   } else {
@@ -64,10 +83,13 @@ function getCoordinates() {
 }
 
 function handleCitySearch(e) {
+  console.log(cityInput.value)
   e.preventDefault();
   if (cityInput.value) {
+    list.classList.add('invisible')
+    
+    displayLoader()
     getWeatherByCity(cityInput.value)
-    list.classList.remove('invisible')
   } else {
     alert('Please, enter city name')
   }
