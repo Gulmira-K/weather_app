@@ -22,18 +22,14 @@ form.addEventListener('submit', handleCitySearch);
 
 function toggleModal(e) {
   if (e.target.getAttribute('id') === 'current-location-btn') {
-    displayLoader()
     getCoordinates()
-
-    list.classList.add('invisible')
-
   } else if (e.target.getAttribute('id') === 'another-city-btn') {
     list.classList.add('invisible')
     weatherDataContainer.classList.toggle('invisible')
   }
    
   questionContainer.classList.toggle('invisible')
- }
+}
 
 function displayLoader() {
   loader.classList.remove('invisible')
@@ -59,6 +55,10 @@ function getWeatherData(url) {
     .then(response => response.json())
     .then(data => displayWeatherData(data))
     .catch(err => console.log(err))
+  
+  list.classList.add('invisible')
+    
+  displayLoader()
 }
 
 function getWeatherByCoords(latitude, longitude) {
@@ -74,10 +74,6 @@ function getWeatherByCity(city) {
 }
 
 function getCoordinates() {
-  displayLoader()
-
-  list.classList.add('invisible')
-
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => getWeatherByCoords(position.coords.latitude, position.coords.longitude))
   } else {
@@ -89,11 +85,7 @@ function handleCitySearch(e) {
   e.preventDefault();
 
   if (cityInput.value) {
-    list.classList.add('invisible')
-    
-    displayLoader()
     getWeatherByCity(cityInput.value)
-
   } else {
     alert('Please, enter city name')
   }
