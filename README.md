@@ -7,6 +7,8 @@ Weather app that displays forecast for the current day in different locations.
 An app that allows user to check the forecast of the current day either in user's current location or in other cities.
 The weather data is obtained from [OpenWeather API](https://openweathermap.org/).
 
+![](images/animation.gif)
+
 ## Technologies
 
 - HTML5

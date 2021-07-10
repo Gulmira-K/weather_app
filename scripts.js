@@ -37,7 +37,7 @@ function displayLoader() {
   setTimeout(function () {
     loader.classList.add('invisible')
     list.classList.remove('invisible')
-  }, 1500)
+  }, 1000)
 }
 
 function displayWeatherData(data) {
@@ -68,6 +68,7 @@ function getWeatherByCoords(latitude, longitude) {
 
 function getWeatherByCity(city) {
   cityInput.value = '';
+  cityName.innerHTML = "";
   
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
   getWeatherData(apiUrl)
