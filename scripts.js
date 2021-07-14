@@ -1,3 +1,5 @@
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
 const questionContainer = document.getElementById('question-container'),  
       weatherDataContainer = document.getElementById('weather-data-container'),  
       loader = document.getElementById('loader'),  
@@ -11,13 +13,16 @@ const questionContainer = document.getElementById('question-container'),
       cityInput = document.getElementById('city-input'),
       searchBtn = document.getElementById('search-btn'),
       coordsBtn = document.getElementById('coords-btn'),
+      microphoneBtn = document.getElementById('microphone-btn'),
       form = document.querySelector('form'),
       list = document.querySelector('ul'),
-      apiKey = 'e78ccf6f31ad51ffa9f2549f7ec140cb';
+      apiKey = 'e78ccf6f31ad51ffa9f2549f7ec140cb',
+      recognition = new SpeechRecognition();
 
 currentCityBtn.addEventListener('click', toggleModal)
 anotherCityBtn.addEventListener('click', toggleModal)
 coordsBtn.addEventListener('click', getCoordinates);
+microphoneBtn.addEventListener('click', startRecognition);
 form.addEventListener('submit', handleCitySearch);
 
 function toggleModal(e) {
@@ -91,3 +96,20 @@ function handleCitySearch(e) {
     alert('Please, enter city name')
   }
 }
+
+function startRecognition() {
+  recognition.lang = 'en-US';
+
+  recognition.start()
+  recognition.addEventListener('result', getResult)
+}
+
+function getResult(e) {
+  if (e.results[0][0].transcript) {
+    const city = e.results[0][0].transcript.replace(/find|in|weather/gi, '')
+    getWeatherByCity(city.trim()) 
+  }
+  
+  recognition.stop()
+}
+
