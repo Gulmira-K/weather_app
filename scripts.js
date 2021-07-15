@@ -68,7 +68,8 @@ function getWeatherData(url) {
 
 function getWeatherByCoords(latitude, longitude) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`
-  getWeatherData(apiUrl)
+  
+  return getWeatherData(apiUrl)
 }
 
 function getWeatherByCity(city) {
@@ -76,12 +77,13 @@ function getWeatherByCity(city) {
   cityName.innerHTML = "";
   
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
-  getWeatherData(apiUrl)
+  
+  return getWeatherData(apiUrl)
 }
 
 function getCoordinates() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => getWeatherByCoords(position.coords.latitude, position.coords.longitude))
+    return navigator.geolocation.getCurrentPosition(position => getWeatherByCoords(position.coords.latitude, position.coords.longitude))
   } else {
     return alert('Could not find you current location')
   }
@@ -91,25 +93,25 @@ function handleCitySearch(e) {
   e.preventDefault();
 
   if (cityInput.value) {
-    getWeatherByCity(cityInput.value)
+    return getWeatherByCity(cityInput.value)
   } else {
-    alert('Please, enter city name')
+    return alert('Please, enter city name')
   }
 }
 
 function startRecognition() {
   recognition.lang = 'en-US';
-
-  recognition.start()
   recognition.addEventListener('result', getResult)
+
+  return recognition.start()
 }
 
 function getResult(e) {
   if (e.results[0][0].transcript) {
     const city = e.results[0][0].transcript.replace(/find|in|weather/gi, '')
-    getWeatherByCity(city.trim()) 
+    return getWeatherByCity(city.trim()) 
   }
   
-  recognition.stop()
+  return recognition.stop()
 }
 
